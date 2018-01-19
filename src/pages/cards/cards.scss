@@ -1,0 +1,89 @@
+
+* html body { 
+    overflow:auto; 
+} 
+ion-app.md [padding] .scroll-content{
+    padding: 0;
+    background-color: #0F0F0F;
+}
+ion-content{
+    width: 100%;
+    height: 100%;
+}
+
+.TEXT-Title{
+    padding-top: 20%;
+    text-align: center;
+    width: 100%;
+    font-size: 4em;
+    color: white;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.stack{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.imgCard{
+    filter: brightness(50%) blur(2px);
+    width: 100%;
+    height: 100%;
+    display: block;
+    // position: relative;
+    position: absolute;
+}
+
+.titleCard{
+    display: block;
+    position: absolute;
+    top: .5%
+}
+
+.descriptCard{
+    padding-top: 60%;
+    text-align: center;
+    width: 100%;
+    font-size: 3em;
+    color: white;
+    display: block;
+    position: absolute;
+    top: .5%
+}
+.imgResultCardLike{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 42%;
+    left: 5%;
+    overflow:auto; 
+}
+.imgResultCardHate{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 42%;
+    right: 5%;
+    overflow:auto; 
+}
+.descripResultCardLike{
+    position: absolute;
+    top: 43%;
+    font-size: 2.5em;
+    left: 150px;
+}
+.descripResultCardHate{
+    position: absolute;
+    top: 43%;
+    font-size: 2.5em;
+    right: 150px;
+}
+
+

@@ -1,0 +1,54 @@
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <img src="../../assets/imgs/Logos/x_logo-white.png" class = 'IMGlogo-splash jello animated' alt="">
+    <!-- <img class = 'IMGlogo-splash jello animated' src="http://res.cloudinary.com/dnakveysz/image/upload/v1515173473/walmartspark_udtxat.png"> -->
+</div>
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-navbar>
+</ion-header> -->
+
+<!-- url('../../assets/imgs/Index/writing-min.jpg')" -->
+
+<ion-content padding>
+  <img class="imgBackground" src="../../assets/imgs/Index/creativeColors1-min.jpg" alt="">
+
+  <div class="contanierGlobal"> 
+        <!-- autoplay="3000" loop="true" speed="1000" -->
+    <ion-slides autoplay="3000" loop="true" speed="1000">
+        <ion-slide>
+          <img src="../../assets/imgs/Logos/x_logo-white.png" alt="">
+          <img class="secondaryImage" src="../../assets/imgs/Index/writing-min.jpg" alt="cards">
+          <p class="descriptionSlider">receive feedback, create and answer forms</p>
+        </ion-slide>
+      
+        <ion-slide>
+          <h1 class="primaryTitleSlider">Make cards</h1>
+          <img class="secondaryImage" src="../../assets/imgs/Index/thinkgMen-min.jpg" alt="cards">
+          <p class="descriptionSlider">Create your own card</p>
+        </ion-slide>
+      
+        <ion-slide >
+          <h1 class="primaryTitleSlider">Easy</h1>
+          <img class="secondaryImage" src="../../assets/imgs/Index/swipeSlider.png" alt="cards">
+          <p class="descriptionSlider">Just swipe</p>
+        </ion-slide>
+    </ion-slides>
+
+    <form (ngSubmit) = "ionLoginCheck(f)" #f="ngForm" class="form-horizontal login" role="form">
+        <ion-item>
+          <ion-label color="primary">Email</ion-label>
+          <ion-input ngModel id="email" name="email" placeholder="Text Input" type="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Password</ion-label>
+          <ion-input ngModel id="pass" name="pass" placeholder="Text Input" type="password" required></ion-input>
+        </ion-item>
+        <div class="btnCenter">
+          <button class="btn" ion-button round>Login</button>
+        </div>
+    </form> 
+  </div> 
+</ion-content>

@@ -1,0 +1,19 @@
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>Cards</ion-title>
+  </ion-navbar>
+</ion-header> -->
+
+<ion-content padding>
+  <ul swing-stack #myswing1 [stackConfig]="stackConfig" id="card-stack" (throwout)="onThrowOut($event)">
+    <li class="stack" #mycards1 swing-card *ngFor="let card of cards; let i = index " (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="{{i}}">
+        <img class="imgCard" src="{{card.image}}" alt="{{card.title}}">
+        <h1 class="TEXT-Title titleCard">{{ card.title }}</h1>
+        <p class="descriptCard">{{card.Description}}</p>
+        <img src="" alt="" class="">
+        <h2 class=""></h2>
+    </li>
+  </ul>
+  <menu-xpress></menu-xpress>
+</ion-content>
+

@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>testigMCards</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div id="viewport">
+    <ul class="stack" swing-stack  [stackConfig]="stackConfig"  #myswing1 (throwout)="onThrowOut($event)">
+      <li swing-card #mycards1 [ngClass]="c.Title" *ngFor="let c of cards">
+        <img src="{{ c.image }}" alt="{{c.Title}}">
+      </li>
+    </ul>
+  </div>
+</ion-content>
