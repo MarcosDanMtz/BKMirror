@@ -1,3 +1,4 @@
+import { ServerService } from './server.services';
 import { ResultsPage } from './../pages/results/results';
 import { TestingCardsTwoPage } from './../pages/testing-cards-two/testing-cards-two';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,6 +17,7 @@ import { SwingModule } from 'angular2-swing/dist/swing.module';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuXpressComponent } from '../components/menu-xpress/menu-xpress';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { MenuXpressComponent } from '../components/menu-xpress/menu-xpress';
   ],
   providers: [
     StatusBar,
+    ServerService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

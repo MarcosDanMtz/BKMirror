@@ -1,5 +1,6 @@
+import { ServerService } from './../../app/server.services';
 import { ResultsPage } from './../results/results';
-import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {
   Direction,
@@ -9,40 +10,54 @@ import {
   SwingCardComponent,
   ThrowEvent
 } from 'angular2-swing';
-
+import { Response } from '@angular/http';
 
 @IonicPage()
 @Component({
   selector: 'page-cards',
   templateUrl: 'cards.html',
 })
-export class CardsPage {
+export class CardsPage implements OnInit {
+
+  infoDeck;
+  cards;
+  cardsTest = [{
+    title: 'Do you Know',
+    Description: 'JAVA',
+    image: '../../assets/imgs/programing-languajes/JavaLogo-min.jpg'
+  },
+  {
+    title: 'Do you Know',
+    Description: 'C#',
+    image: '../../assets/imgs/programing-languajes/cSharp-min.png'
+  },
+  {
+    title: 'Do you Know',
+    Description: 'PHYTON',
+    image: '../../assets/imgs/programing-languajes/python-logo-min.png'
+  }
+];
 
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
-
-  cards = [{
-      title: 'Do you Know',
-      Description: 'JAVA',
-      image: '../../assets/imgs/programing-languajes/JavaLogo-min.jpg'
-    },
-    {
-      title: 'Do you Know',
-      Description: 'C#',
-      image: '../../assets/imgs/programing-languajes/cSharp-min.png'
-    },
-    {
-      title: 'Do you Know',
-      Description: 'PHYTON',
-      image: '../../assets/imgs/programing-languajes/python-logo-min.png'
-    }
-  ];
+  ngOnInit(){
+    this.infoDeck = this._navParams.data;    
+    const toSend = '/getCardsByIdDeck/' + this.infoDeck.idDeck;
+    console.log(toSend);
+    this._services.xpressCards(toSend).subscribe(
+      (response: Response) => {
+        this.cards = response.json();
+        console.log(this.cards);
+      },
+      (error) => console.log(error)
+    );
+  }
 
   stackConfig: StackConfig;
   recentCard: string = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public _navParams: NavParams, private _services: ServerService) {
     this.stackConfig = {
       allowedDirections: [Direction.LEFT, Direction.RIGHT],
       // throwOutConfidence: (offset, element: any) => {

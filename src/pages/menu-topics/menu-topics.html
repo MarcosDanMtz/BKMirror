@@ -3,11 +3,9 @@
     <h1>Select a set of cards</h1>
   </div>
   <div class="bodyMenuTopics">
-    <div (click)="cards()" class="menuTopicsSec" id="topicN" style="background-image: url('../../assets/imgs/MenuTopics/programingLagnaguages-min.jpg')">
-        <div class="bacTopicSec">
-          <!-- <img src="../../assets/imgs/MenuTopics/programingLagnaguages-min.jpg" alt=""> -->
-          <h3 class="titeTopic">Programming Languages</h3>
-        </div>
+    <div *ngFor = "let deck of decks; let i index" class="containerTopic" id="deck.idDeck" (click)="deckToCards(deck.idDeck, i)">
+        <img src="{{deck.UrlImgVideo}}" alt="deck.title">
+        <h3 class="titeTopic">{{deck.title}}</h3>
     </div>
   </div>
   <menu-xpress></menu-xpress>
