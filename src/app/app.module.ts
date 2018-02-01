@@ -1,4 +1,4 @@
-import { ServerService } from './server.services';
+
 import { ResultsPage } from './../pages/results/results';
 import { TestingCardsTwoPage } from './../pages/testing-cards-two/testing-cards-two';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +17,11 @@ import { SwingModule } from 'angular2-swing/dist/swing.module';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuXpressComponent } from '../components/menu-xpress/menu-xpress';
+import { CardsService } from './services/cards.service';
+import { ServerService } from './services/server.services';
+import { VotesService } from './services/votes.services';
+import { DeckService } from './services/decks.service';
+import { DecksAnsweredService } from './services/decksAnswered.service';
 
 
 @NgModule({
@@ -53,6 +58,10 @@ import { MenuXpressComponent } from '../components/menu-xpress/menu-xpress';
   providers: [
     StatusBar,
     ServerService,
+    VotesService,
+    CardsService,
+    DeckService,
+    DecksAnsweredService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

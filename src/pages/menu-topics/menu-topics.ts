@@ -1,8 +1,10 @@
-import { ServerService } from './../../app/server.services';
+
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { CardsPage } from '../cards/cards';
 import { Response } from '@angular/http';
+import { ServerService } from '../../app/services/server.services';
+import { DeckService } from '../../app/services/decks.service';
 
 @IonicPage()
 @Component({
@@ -13,10 +15,10 @@ export class MenuTopicsPage implements OnInit {
 
   decks;
 
-  constructor(public _navCtrl: NavController, private _services: ServerService) {  }
+  constructor(public _navCtrl: NavController, private _Deckservices: DeckService) {  }
 
   ngOnInit() {
-    this._services.xpressDecks("/activeDecks").subscribe(
+    this._Deckservices.GetxpressAllDecksForAnsByIdUser(16).subscribe(
       (response: Response) => {
         this.decks = response.json();
         console.log(this.decks);

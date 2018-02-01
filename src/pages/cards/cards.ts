@@ -1,4 +1,4 @@
-import { ServerService } from './../../app/server.services';
+import { CardsService } from './../../app/services/cards.service';
 import { ResultsPage } from './../results/results';
 import { Component, ViewChild, ViewChildren, QueryList, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -11,6 +11,9 @@ import {
   ThrowEvent
 } from 'angular2-swing';
 import { Response } from '@angular/http';
+
+import { VotesService } from '../../app/services/votes.services';
+import { DecksAnsweredService } from '../../app/services/decksAnswered.service';
 
 @IonicPage()
 @Component({
@@ -42,22 +45,33 @@ export class CardsPage implements OnInit {
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
   ngOnInit(){
+
     this.infoDeck = this._navParams.data;    
-    const toSend = '/getCardsByIdDeck/' + this.infoDeck.idDeck;
-    console.log(toSend);
-    this._services.xpressCards(toSend).subscribe(
-      (response: Response) => {
-        this.cards = response.json();
-        console.log(this.cards);
-      },
-      (error) => console.log(error)
-    );
+    if (this.infoDeck.IMGVideoFromPT){
+      this._servicesCards.GetxpressCardsNVPTByIdDeck(16, parseInt(this.infoDeck.idDeck)).subscribe(
+        (response: Response) => {
+          this.cards = response.json();
+          console.log(this.cards);
+        },
+        (error) => console.log(error)
+      );
+    }else{
+      this._servicesCards.GetxpressCardsByIdDeck(16, parseInt(this.infoDeck.idDeck)).subscribe(
+        (response: Response) => {
+          this.cards = response.json();
+          console.log(this.cards);
+        },
+        (error) => console.log(error)
+      );
+    }
+
   }
 
   stackConfig: StackConfig;
   recentCard: string = '';
 
-  constructor(public navCtrl: NavController, public _navParams: NavParams, private _services: ServerService) {
+  constructor(public navCtrl: NavController, public _navParams: NavParams, private _servicesCards: CardsService,
+              private _votesService: VotesService, private _decksAns: DecksAnsweredService) {
     this.stackConfig = {
       allowedDirections: [Direction.LEFT, Direction.RIGHT],
       // throwOutConfidence: (offset, element: any) => {
@@ -126,13 +140,36 @@ export class CardsPage implements OnInit {
     //const removedCard = this.cards.pop();
   }
 
-  onThrowOut(event: ThrowEvent) {
-    console.log(event);
+  onThrowOut(event: ThrowEvent, indexCard) {
+    var idCard = parseInt(event.target.id);
+    var idAssociate = 16;
+    var idPTEvaluate = 0;
 
-    console.log('Hook from the template', event.throwDirection);
-    console.log(event.target.id);
+    var vote = null;
+    if (event.throwDirection.toString() === 'Symbol(RIGHT)')
+      vote = true;
+    else if (event.throwDirection.toString() === 'Symbol(LEFT)')
+      vote = false;  
     
-    if (event.target.id == "0"){
+    if (this.infoDeck.IMGVideoFromPT){
+      idPTEvaluate = this.cards[indexCard].IdThingPeople
+      this._votesService.PostVote(idCard, idAssociate, vote, idPTEvaluate).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+    }else{
+      this._votesService.PostVote(idCard, idAssociate, vote, idPTEvaluate).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+    }
+    this.cards.splice(indexCard, 1);    
+    if (this.cards.length == "0"){
+      this.infoDeck.idDeck
+      this._decksAns.PostxpressDecksAns(16, this.infoDeck.idDeck).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
       this.navCtrl.push(ResultsPage)
     }
   }

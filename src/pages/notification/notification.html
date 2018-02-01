@@ -17,7 +17,8 @@
   </div>
 
   <div class="btnCenter notify">
-    <button class="btn" ion-button round (click)="setCards()">Continue</button>
+    <button class="btn" ion-button round (click)="setCards()" *ngIf="!isResult">Continue</button>
+
   </div>
 
   <menu-xpress></menu-xpress>
