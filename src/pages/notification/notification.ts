@@ -3,6 +3,7 @@ import { MenuTopicsPage } from './../menu-topics/menu-topics';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { CardsService } from '../../app/services/cards.service';
 
 /**
  * Generated class for the NotificationPage page.
@@ -19,7 +20,10 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 export class NotificationPage implements OnInit {
   dataRecive;
   isResult;
-  constructor(public _navCtrl: NavController, public _navParams: NavParams) {
+  cardNotify;
+  img; 
+  description;
+  constructor(public _navCtrl: NavController, public _navParams: NavParams, private _cardService: CardsService) {
   }
 
   setCards(){
@@ -29,11 +33,21 @@ export class NotificationPage implements OnInit {
 
   ngOnInit(){
     this.dataRecive = this._navParams.data; 
-    if(this.dataRecive[this.dataRecive.length-1]='deck')
-      this.isResult = false;
-    else
-      this.isResult = true;
     console.log(this.dataRecive);
+
+    if(this.dataRecive[this.dataRecive.length-1]==='deck')
+      this.isResult = false;
+    else if (this.dataRecive[this.dataRecive.length-1]==='resultNotify'){
+      this.isResult = true;
+      this._cardService.GetOneCardById(this.dataRecive[0].postiveBest[0].idCard).subscribe(
+        (response) => {
+          this.cardNotify = response.json();
+          this.img = this.cardNotify[0].UrlImgVideo;
+          this.description = this.cardNotify[0].description;
+        },
+        (error) => console.log(error)
+      );
+    }
        
   }
 

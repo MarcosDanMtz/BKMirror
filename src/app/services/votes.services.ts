@@ -30,4 +30,12 @@ export class VotesService {
             //.map((res:Response) => res.json());
         }
     }
+
+    GetPercentByIdCard(idCard){
+        return this.http.get('http://localhost:3000/xpressVotesCards/api/promByIdAssociate/' + idCard);
+    }
+
+    GetBestWorst(idDeck){
+        return this.http.get('http://localhost:3000/xpressVotesCards/api/bestWorstCaculate/' + idDeck);
+    }
 }

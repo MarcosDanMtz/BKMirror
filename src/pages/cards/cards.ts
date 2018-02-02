@@ -14,6 +14,7 @@ import { Response } from '@angular/http';
 
 import { VotesService } from '../../app/services/votes.services';
 import { DecksAnsweredService } from '../../app/services/decksAnswered.service';
+import { NotificationPage } from '../notification/notification';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,9 @@ export class CardsPage implements OnInit {
 
   infoDeck;
   cards;
+  percentTrue=0;
+  percentFalse=0;
+  sendInfoNotification;
   cardsTest = [{
     title: 'Do you Know',
     Description: 'JAVA',
@@ -45,13 +49,23 @@ export class CardsPage implements OnInit {
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
   ngOnInit(){
+    this.infoDeck = this._navParams.data;  
 
-    this.infoDeck = this._navParams.data;    
     if (this.infoDeck.IMGVideoFromPT){
       this._servicesCards.GetxpressCardsNVPTByIdDeck(16, parseInt(this.infoDeck.idDeck)).subscribe(
         (response: Response) => {
           this.cards = response.json();
           console.log(this.cards);
+          
+          this._votesService.GetPercentByIdCard(this.cards[this.cards.length-1].idCard).subscribe(
+            (response) => {
+              this.percentTrue = response.json()[0].postive;
+              this.percentFalse = response.json()[0].false;
+              console.log(this.cards[this.cards.length-1].idCard);
+            },
+            (error) => console.log(error)
+          );
+
         },
         (error) => console.log(error)
       );
@@ -60,11 +74,20 @@ export class CardsPage implements OnInit {
         (response: Response) => {
           this.cards = response.json();
           console.log(this.cards);
+
+          this._votesService.GetPercentByIdCard(this.cards[this.cards.length-1].idCard).subscribe(
+            (response) => {
+              this.percentTrue = response.json()[0].postive;
+              this.percentFalse = response.json()[0].false;
+              console.log(this.cards[this.cards.length-1].idCard);
+            },
+            (error) => console.log(error)
+          );
+
         },
         (error) => console.log(error)
       );
-    }
-
+    }    
   }
 
   stackConfig: StackConfig;
@@ -103,7 +126,7 @@ export class CardsPage implements OnInit {
       imgClass = 'imgResultCardLike rotateIn animated'; 
       img = '../../assets/imgs/Cards/laughing.png';
       infoResulCardClass = 'descripResultCardLike flip animated';
-      infoResulCard = '87%';
+      infoResulCard = this.percentTrue.toString() + '%';
       descriptionDisplay = 'none';
     } else if  (x == 0 ){
       descriptionDisplay = '';
@@ -114,7 +137,7 @@ export class CardsPage implements OnInit {
       imgClass = 'imgResultCardHate rotateIn animated'; 
       img = '../../assets/imgs/Cards/angry.png';
       infoResulCardClass = 'descripResultCardHate flip animated';
-      infoResulCard = '21%';
+      infoResulCard = this.percentFalse.toString() + '%';
     }
     
     element.children[3].className = imgClass;    
@@ -123,6 +146,7 @@ export class CardsPage implements OnInit {
     element.children[4].innerHTML = infoResulCard;
     element.children[2].style['display'] = descriptionDisplay;
     element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;    
+    
   }
 
   decimalToHex(d, padding) {
@@ -163,17 +187,39 @@ export class CardsPage implements OnInit {
         (error) => console.log(error)
       );
     }
-    this.cards.splice(indexCard, 1);    
+    this.cards.splice(indexCard, 1); 
     if (this.cards.length == "0"){
       this.infoDeck.idDeck
       this._decksAns.PostxpressDecksAns(16, this.infoDeck.idDeck).subscribe(
         (response) => console.log(response),
         (error) => console.log(error)
       );
-      this.navCtrl.push(ResultsPage)
+      this._votesService.GetBestWorst(this.infoDeck.idDeck).subscribe(
+        (response) => {
+          this.sendInfoNotification = response.json()
+          this.sendInfoNotification.push('resultNotify');  
+          this.navCtrl.push(NotificationPage, this.sendInfoNotification)       
+        },
+        (error) => console.log(error)
+      );
+      // this.navCtrl.push(NotificationPage, sendInfoNotification)
+    }else{
+      this._votesService.GetPercentByIdCard(this.cards[indexCard-1].idCard).subscribe(
+        (response) => {
+          this.percentTrue = response.json()[0].postive;
+          this.percentFalse = response.json()[0].false;
+        },
+        (error) => console.log(error)
+      );
+
     }
+
   }
 
+  clickCard(){
+    console.log(this.cards);
+    // this._votesService.GetPercentByIdCard(this.cards[this.cards.length])
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CardsPage');
   }

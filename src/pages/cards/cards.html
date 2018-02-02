@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <ul swing-stack #myswing1 [stackConfig]="stackConfig" id="card-stack" *ngFor="let card of cards; let i = index" (throwout)="onThrowOut($event, i)" >
-    <li class="stack" #mycards1 swing-card (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="{{card.idCard}}">
+    <li class="stack" #mycards1 swing-card (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="{{card.idCard}}" (click)="clickCard()">
         <img class="imgCard" src="{{card.UrlImgVideo}}" alt="{{card.description}}">
         <h1 class="TEXT-Title titleCard">{{ card.title }}</h1>
         <p class="descriptCard">{{card.description}}</p>

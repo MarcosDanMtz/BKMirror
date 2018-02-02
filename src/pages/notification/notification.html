@@ -9,16 +9,18 @@
 
 
 <ion-content padding>
-  <img class="imgBackground" src="../../assets/imgs/Index/smile.jpg" alt="">
+  <img class="imgBackground" *ngIf="!isResult" src="../../assets/imgs/Index/smile.jpg" alt="">
+  <img class="imgBackground" *ngIf="isResult" src="{{img}}" alt="">
   <div class="contanierGlobal">
     <div class="globalTitleContainer"> 
-        <h1 class="globalTitle">You have a new set of cards</h1>
+        <h1 class="globalTitle" *ngIf="!isResult">You have a new set of cards</h1>
+        <h1 class="globalTitle" *ngIf="isResult">Most popular is: </h1>
     </div>
   </div>
 
   <div class="btnCenter notify">
     <button class="btn" ion-button round (click)="setCards()" *ngIf="!isResult">Continue</button>
-
+    <p class="descriptionNotify" *ngIf="isResult">{{description}}</p>
   </div>
 
   <menu-xpress></menu-xpress>

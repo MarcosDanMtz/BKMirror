@@ -14,4 +14,8 @@ export class CardsService {
     GetxpressCardsNVPTByIdDeck(idAssociate, idDeck){
         return this.http.get('http://localhost:3000/xpressCards/api/getCardsNVPTByIdDeck/' + idAssociate + '&' + idDeck);//.map((res:Response) => res.json());
     }
+
+    GetOneCardById(idCard){
+        return this.http.get('http://localhost:3000/xpressCards/api/getOneCardById/' + idCard);
+    }
 }
