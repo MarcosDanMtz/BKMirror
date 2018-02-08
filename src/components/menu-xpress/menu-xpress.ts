@@ -1,6 +1,6 @@
 import { ResultsPage } from './../../pages/results/results';
 import { MenuTopicsPage } from './../../pages/menu-topics/menu-topics';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
 
 /**
@@ -16,9 +16,8 @@ import { AlertController, NavController } from 'ionic-angular';
 export class MenuXpressComponent {
 
   text: string;
-
+  @Input() idUser;
   constructor(public _alertCtrl: AlertController, public _navCtrl: NavController ) {
-    console.log('Hello MenuXpressComponent Component');
   }
 
   availableSoon(){
@@ -39,7 +38,7 @@ export class MenuXpressComponent {
   directToResuts(){
     let view = this._navCtrl.getActive();
     if( view.component.name != "ResultsPage" )
-      this._navCtrl.push(ResultsPage);
+      this._navCtrl.push(ResultsPage, this.idUser);
   }
 
 }

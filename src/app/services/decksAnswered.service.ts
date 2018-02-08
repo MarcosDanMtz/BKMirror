@@ -19,4 +19,10 @@ export class DecksAnsweredService {
             //.map((res:Response) => res.json());
         }
     }
+
+    GetxpressDecksAnsByIdAss(idAssociate){
+        return this.http.get('http://localhost:3000/xpressDecksAnswered/api/decksAnsById/' + idAssociate);
+    }
+
+
 }

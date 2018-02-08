@@ -4,14 +4,12 @@
       <h1>Select a set of cards</h1>
     </div>
     <div class="bodyMenuResults">
-      <div class="resultTopicSec" id="topicN" style="background-image: url('../../assets/imgs/MenuTopics/programingLagnaguages-min.jpg')">
-        <div class="bacTopicSec">
-              <!-- <img src="../../assets/imgs/MenuTopics/programingLagnaguages-min.jpg" alt=""> -->
-              <h3 class="titeTopic"><ion-icon name="checkmark-circle-outline"></ion-icon>Programming Languages</h3>
-            <p>Java is the most common programming language</p>
-        </div>
+      <div class="containerResults" *ngFor="let deck of decksAnsByAssociate; let i = index" id="topicN">
+        <img src="{{deck.UrlImgVideo}}" alt="deck.title">
+        <h3 class="titeTopic"><ion-icon name="checkmark-circle-outline"></ion-icon>{{deck.title}}</h3>
+        <p>the most popular is: {{deck.ResultDescription}}</p>
       </div>
     </div>
   </div>
-  <menu-xpress></menu-xpress>
+  <menu-xpress [idUser]="idUser"></menu-xpress>
 </ion-content>

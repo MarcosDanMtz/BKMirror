@@ -14,10 +14,12 @@ import { DeckService } from '../../app/services/decks.service';
 export class MenuTopicsPage implements OnInit {
 
   decks;
+  idUser;
 
   constructor(public _navCtrl: NavController, private _Deckservices: DeckService) {  }
 
   ngOnInit() {
+    this.idUser=16;
     this._Deckservices.GetxpressAllDecksForAnsByIdUser(16).subscribe(
       (response: Response) => {
         this.decks = response.json();

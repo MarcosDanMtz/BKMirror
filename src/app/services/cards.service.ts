@@ -11,8 +11,8 @@ export class CardsService {
         return this.http.get('http://localhost:3000/xpressCards/api/getCardsNoVoteYetByIdDeck/' + idAssociate + '&' + idDeck);//.map((res:Response) => res.json());
     }
 
-    GetxpressCardsNVPTByIdDeck(idAssociate, idDeck){
-        return this.http.get('http://localhost:3000/xpressCards/api/getCardsNVPTByIdDeck/' + idAssociate + '&' + idDeck);//.map((res:Response) => res.json());
+    GetxpressCardsNVPTByIdDeck(idAssociate, idDeck, idThingPeople){
+        return this.http.get('http://localhost:3000/xpressCards/api/getCardsNVPTByIdDeck/' + idAssociate + '&' + idDeck + '&' + idThingPeople);//.map((res:Response) => res.json());
     }
 
     GetOneCardById(idCard){

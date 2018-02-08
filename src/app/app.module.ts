@@ -1,8 +1,10 @@
+import { DecksWillEvaluatePT } from './services/deckWillEvalute.service';
+import { ResutDeckService } from './services/resultsDecks.service';
 
 import { ResultsPage } from './../pages/results/results';
 import { TestingCardsTwoPage } from './../pages/testing-cards-two/testing-cards-two';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, Input } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -61,6 +63,8 @@ import { DecksAnsweredService } from './services/decksAnswered.service';
     VotesService,
     CardsService,
     DeckService,
+    DecksWillEvaluatePT,
+    ResutDeckService,
     DecksAnsweredService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

@@ -23,6 +23,7 @@ export class NotificationPage implements OnInit {
   cardNotify;
   img; 
   description;
+  idUser
   constructor(public _navCtrl: NavController, public _navParams: NavParams, private _cardService: CardsService) {
   }
 
@@ -33,10 +34,11 @@ export class NotificationPage implements OnInit {
 
   ngOnInit(){
     this.dataRecive = this._navParams.data; 
-    console.log(this.dataRecive);
+    this.idUser = 16;
 
-    if(this.dataRecive[this.dataRecive.length-1]==='deck')
+    if(this.dataRecive[this.dataRecive.length-1]==='deck'){
       this.isResult = false;
+    }
     else if (this.dataRecive[this.dataRecive.length-1]==='resultNotify'){
       this.isResult = true;
       this._cardService.GetOneCardById(this.dataRecive[0].postiveBest[0].idCard).subscribe(
